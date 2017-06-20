@@ -94,11 +94,17 @@
     Class cls=[model class];
     //    判断表格是否存在
     if (![KingTableTool isTableExists:cls UserId:uid]) {
-        [self createTable:cls andUserId:uid];
+        if ([self createTable:cls andUserId:uid]) {
+            NSLog(@"建表失败");
+            return NO;
+        }
     }
     //    表格是否需要更新
     if ([KingTableTool isTableRequiredUpdateClass:cls andUserId:uid]) {
-        [self upDataTable:cls andUserId:uid];
+        if (![self upDataTable:cls andUserId:uid]) {
+            NSLog(@"更新数据库字段名失败");
+            return NO;
+        }
     }
     //    判断记录是否存在主键
     NSString *tableName=[KingBaseTool tableName:cls];
