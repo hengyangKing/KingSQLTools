@@ -30,6 +30,8 @@
 		094D1CB21EF9B34A004F5A1A /* KingTableTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1CAF1EF9B34A004F5A1A /* KingTableTool.m */; };
 		094D1CB61EF9B3E6004F5A1A /* KingSqliteModelToolDeleteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1CB51EF9B3E6004F5A1A /* KingSqliteModelToolDeleteTests.m */; };
 		094D1CB81EF9B413004F5A1A /* KingSqliteModelToolSaveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1CB71EF9B413004F5A1A /* KingSqliteModelToolSaveTests.m */; };
+		094D1CBB1EF9BA56004F5A1A /* KingSqliteModelTool+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1CBA1EF9BA56004F5A1A /* KingSqliteModelTool+Query.m */; };
+		094D1CBD1EF9C195004F5A1A /* KingSqliteModelToolQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1CBC1EF9C195004F5A1A /* KingSqliteModelToolQueryTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,9 @@
 		094D1CB41EF9B368004F5A1A /* KingModelToolProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KingModelToolProtocol.h; sourceTree = "<group>"; };
 		094D1CB51EF9B3E6004F5A1A /* KingSqliteModelToolDeleteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KingSqliteModelToolDeleteTests.m; sourceTree = "<group>"; };
 		094D1CB71EF9B413004F5A1A /* KingSqliteModelToolSaveTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KingSqliteModelToolSaveTests.m; sourceTree = "<group>"; };
+		094D1CB91EF9BA56004F5A1A /* KingSqliteModelTool+Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KingSqliteModelTool+Query.h"; sourceTree = "<group>"; };
+		094D1CBA1EF9BA56004F5A1A /* KingSqliteModelTool+Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KingSqliteModelTool+Query.m"; sourceTree = "<group>"; };
+		094D1CBC1EF9C195004F5A1A /* KingSqliteModelToolQueryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KingSqliteModelToolQueryTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +180,7 @@
 				094D1C9B1EF8E8E3004F5A1A /* KingTableToolTests.m */,
 				094D1CB51EF9B3E6004F5A1A /* KingSqliteModelToolDeleteTests.m */,
 				094D1CB71EF9B413004F5A1A /* KingSqliteModelToolSaveTests.m */,
+				094D1CBC1EF9C195004F5A1A /* KingSqliteModelToolQueryTests.m */,
 				094D1C9D1EF8FC79004F5A1A /* KingSqliteModelToolTests.m */,
 				0924B4D51EF848A200EC492D /* Info.plist */,
 			);
@@ -199,6 +205,8 @@
 				094D1CA41EF9B1FD004F5A1A /* KingSqliteModelTool+Save.m */,
 				094D1CA61EF9B23B004F5A1A /* KingSqliteModelTool+Delete.h */,
 				094D1CA71EF9B23B004F5A1A /* KingSqliteModelTool+Delete.m */,
+				094D1CB91EF9BA56004F5A1A /* KingSqliteModelTool+Query.h */,
+				094D1CBA1EF9BA56004F5A1A /* KingSqliteModelTool+Query.m */,
 			);
 			path = KingSqliteModelTool;
 			sourceTree = "<group>";
@@ -337,6 +345,7 @@
 				094D1C981EF8E4CF004F5A1A /* KingBaseTool.m in Sources */,
 				0924B4801EF82B4700EC492D /* ViewController.m in Sources */,
 				0924B4DF1EF8585500EC492D /* Person.m in Sources */,
+				094D1CBB1EF9BA56004F5A1A /* KingSqliteModelTool+Query.m in Sources */,
 				0924B47D1EF82B4700EC492D /* AppDelegate.m in Sources */,
 				0924B47A1EF82B4700EC492D /* main.m in Sources */,
 			);
@@ -348,6 +357,7 @@
 			files = (
 				094D1CB61EF9B3E6004F5A1A /* KingSqliteModelToolDeleteTests.m in Sources */,
 				094D1C9E1EF8FC79004F5A1A /* KingSqliteModelToolTests.m in Sources */,
+				094D1CBD1EF9C195004F5A1A /* KingSqliteModelToolQueryTests.m in Sources */,
 				0924B4E71EF85E1F00EC492D /* KingModelToolTests.m in Sources */,
 				094D1C9C1EF8E8E3004F5A1A /* KingTableToolTests.m in Sources */,
 				0924B4DC1EF848C300EC492D /* KingSqliteToolTests.m in Sources */,
