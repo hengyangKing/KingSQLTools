@@ -19,11 +19,20 @@
 
 @optional
 /**
- 返回不需要计入表的字段名称数组
+ 返回需要忽略的字段名称数组
  
  @return 装有属性变量的数组
  */
 +(NSArray<NSString *> *)ignoreColumnNames;
+
+
+/**
+ 需要更名的字段名称映射
+ 新字段名称--->旧字段名称的映射
+ @return 返回新老字段名称映射
+ */
++(NSDictionary *)newNameToPreviousName;
+
 
 
 @end

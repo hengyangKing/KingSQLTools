@@ -51,7 +51,7 @@
 }
 
 -(void)testCreateTable {
-    BOOL result = [KingSqliteModelTool  createTable:[Person class] andUserId:@"1"];
+    BOOL result = [KingSqliteModelTool  createTable:[Person class] andUserId:nil];
     XCTAssertEqual(result, YES);
 }
 

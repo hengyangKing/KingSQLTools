@@ -49,7 +49,6 @@
 }
 +(BOOL)upDataTable:(Class )cls andUserId:(NSString *)uid
 {
-    
 //    1.创建一个拥有正确结构的临时表
     NSString *tmpTableName=[KingBaseTool tmpTableName:cls];
     
@@ -63,13 +62,13 @@
     
     NSMutableArray *sqls=[NSMutableArray array];
     
-        //获取模型内所有的字段
-    NSString *createTableSql=[NSString stringWithFormat:@"create table if not exists %@(%@, primary key(%@))", tmpTableName, [KingModelTool columnNameAndTypesStr:cls], primaryKey];
+    //获取模型内所有的字段
+    NSString *createTableSql=[NSString stringWithFormat:@"create table if not exists %@(%@, primary key(%@));", tmpTableName, [KingModelTool columnNameAndTypesStr:cls], primaryKey];
     [sqls addObject:createTableSql];
     
-        
+    
     //根据主键插入数据
-    NSString *insertPrimaryKey=[NSString stringWithFormat:@"insert into %@(%@) select %@ from %@;",tmpTableName,primaryKey,primaryKey,tableName];
+    NSString *insertPrimaryKey=[NSString stringWithFormat:@"insert into %@(%@) select %@ from %@;", tmpTableName, primaryKey, primaryKey, tableName];
     //根据主键 把所有的数据更新进新表
     [sqls addObject:insertPrimaryKey];
 
@@ -78,21 +77,37 @@
     
     NSArray *newNames=[KingModelTool allTableSortedIvarNames:cls];
     
-    for (NSString *columnName in newNames) {
-        if (![previousNames containsObject:columnName]) {
-            continue;
-        }
-        NSString *updateSql=[NSString stringWithFormat:@"update %@ set %@ =(select %@ from %@ where %@.%@ = %@.%@)",tmpTableName,columnName,columnName,tableName,tmpTableName,primaryKey,tableName,primaryKey];
-        [sqls addObject:updateSql];
-
+    
+    //获取变更名称的字典
+    NSDictionary *updateNames=@{};
+    if ([cls respondsToSelector:@selector(newNameToPreviousName)]) {
+        updateNames=[cls newNameToPreviousName];
     }
     
+    
+    for (NSString *columnName in newNames) {
+        NSString *previousName=columnName;
+        if ([updateNames[columnName] length]!=0) {
+            //老字段名称有值
+            previousName=updateNames[columnName];
+        }
+//        若不包含新的列名，且同时不包含旧列名
+        if ((![previousNames containsObject:columnName] &&![previousNames containsObject:previousName])||[columnName isEqualToString:primaryKey]) {
+            continue;
+        }
+        
+        
+        NSString *updateSql=[NSString stringWithFormat:@"update %@ set %@ =(select %@ from %@ where %@.%@ = %@.%@);",tmpTableName,columnName,previousName,tableName,tmpTableName,primaryKey,tableName,primaryKey];
+        [sqls addObject:updateSql];
+    }
+    
+    
     //删除老表
-    NSString *deletePreviousTable=[NSString stringWithFormat:@"drop table if exsts %@",tableName];
+    NSString *deletePreviousTable=[NSString stringWithFormat:@"drop table if exists %@;", tableName];
     [sqls addObject:deletePreviousTable];
     
     //临时表改名
-    NSString *renameTableName=[NSString stringWithFormat:@"alter table %@ rename to %@",tmpTableName,tableName];
+    NSString *renameTableName=[NSString stringWithFormat:@"alter table %@ rename to %@;", tmpTableName, tableName];
     [sqls addObject:renameTableName];
     
     //批量执行

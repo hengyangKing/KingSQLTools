@@ -45,7 +45,7 @@
 }
 
 -(void)testUpDataTable {
-    BOOL result = [KingSqliteModelTool upDataTable:[Person class] andUserId:@"1"];
+    BOOL result = [KingSqliteModelTool upDataTable:[Person class] andUserId:nil];
     XCTAssertEqual(result, YES);
 
 }
