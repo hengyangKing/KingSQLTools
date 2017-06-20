@@ -8,6 +8,7 @@
 
 #import "KingTableTool.h"
 #import "KingSqliteTool.h"
+#import "KingModelTool.h"
 @implementation KingTableTool
 +(NSArray *)tableSortedColumnNames:(Class)cls UserId:(NSString *)uid
 {
@@ -48,4 +49,32 @@
     
     return names;
 }
+/**
+ 判断表格是否已经存在
+ */
++ (BOOL)isTableExists: (Class)cls UserId:(NSString *)uid {
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from sqlite_master where type = 'table' and name = '%@'", [self tableName:cls]];
+    
+    NSArray *resultSet = [KingSqliteTool querySql:sql andUserId:uid];
+    
+    return resultSet.count > 0;
+    
+}
+
+/**
+ 表格是否需要更新
+ */
++(BOOL)isTableRequiredUpdateClass:(Class)cls andUserId:(NSString *)uid
+{
+    NSArray *modelKeys= [KingModelTool allTableSortedIvarNames:cls];
+    
+    NSArray *tableKeys= [KingTableTool tableSortedColumnNames:cls UserId:uid];
+    
+    return ![modelKeys isEqualToArray:tableKeys];
+    
+}
+
+
+
 @end

@@ -40,7 +40,13 @@
    NSInteger count= [KingTableTool tableSortedColumnNames:[Person class] UserId:@"1"].count;
     XCTAssertEqual(count, 3);
     
-
 }
+-(void)testIsTableRequiredUpdateClass {
+    
+    BOOL result = [KingTableTool isTableRequiredUpdateClass:[Person class] andUserId:@"1"];
+    XCTAssertEqual(result, YES);
+    
+}
+
 
 @end

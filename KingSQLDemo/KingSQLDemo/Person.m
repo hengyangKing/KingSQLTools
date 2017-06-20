@@ -28,8 +28,9 @@
 
     return @[@"score"];
 }
+//新字段名称--->旧字段名称的映射
 +(NSDictionary *)newNameToPreviousName
 {
-    return @{@"age":@"Age"};
+    return @{@"arr":@"",@"dic":@""};
 }
 @end

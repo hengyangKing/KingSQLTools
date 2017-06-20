@@ -29,6 +29,7 @@
 /**
  需要更名的字段名称映射
  新字段名称--->旧字段名称的映射
+ 若需新添加字段则为 @"foo":@"" 格式
  @return 返回新老字段名称映射
  */
 +(NSDictionary *)newNameToPreviousName;

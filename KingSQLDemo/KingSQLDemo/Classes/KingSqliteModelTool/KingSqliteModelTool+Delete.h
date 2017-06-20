@@ -1,65 +1,14 @@
 //
-//  KingSqliteModelTool.h
+//  KingSqliteModelTool+Delete.h
 //  KingSQLDemo
 //
-//  Created by J on 2017/6/20.
+//  Created by J on 2017/6/21.
 //  Copyright © 2017年 J. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "KingSqliteModelTool.h"
 
-//描述条件内关系
-typedef NS_ENUM(NSUInteger,KingSqliteToolRelationType){
-    KingSqliteToolRelationTypeIsEqual,
-    KingSqliteToolRelationTypeIsGreater,
-    KingSqliteToolRelationTypeIsLess,
-    KingSqliteToolRelationTypeIsEG,
-    KingSqliteToolRelationTypeIsEL,
-    KingSqliteToolRelationTypeIsNotEqual,
-};
-//描述条件间关系
-typedef NS_ENUM(NSUInteger,KingSqliteToolNexusType){
-    KingSqliteToolNexusTypeIsNot,
-    KingSqliteToolNexusTypeIsAnd,
-    KingSqliteToolNexusTypeIsOr,
-};
-
-@interface KingSqliteModelTool : NSObject
-
-/**
- 创建表
-
- @param cls 类名-->用作表名
- @param uid userid
- */
-+(BOOL)createTable:(Class)cls andUserId:(NSString *)uid;
-
-
-/**
- 是否需要更新表
-
- @param cls 表名称
- @param uid uid
- @return 返回是否需要更新表
- */
-+(BOOL)isTableRequiredUpdateClass:(Class)cls andUserId:(NSString *)uid;
-
-/**
- 更新表格
-
- @param cls 表名称
- @param uid uid
- @return 返回是否更新成功
- */
-+(BOOL)upDataTable:(Class )cls andUserId:(NSString *)uid;
-
-
- /**
-  保存/ 已经存在, 更新
-  */
-+ (BOOL)saveModel:(id)model andUserId:(NSString *)uid;
-
-
+@interface KingSqliteModelTool (Delete)
 /**
  
  删除模型
@@ -73,7 +22,7 @@ typedef NS_ENUM(NSUInteger,KingSqliteToolNexusType){
 
 /**
  删除模型遵守某种条件的条目
-
+ 
  @param cls 内部表名称
  @param wherestr 条件
  @param uid uid
@@ -86,7 +35,7 @@ typedef NS_ENUM(NSUInteger,KingSqliteToolNexusType){
 
 /**
  删除模型遵守某种条件的条目
-
+ 
  @param cls 表名称
  @param columnName 字段名
  @param relationType 条件
