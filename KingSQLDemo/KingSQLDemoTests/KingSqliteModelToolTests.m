@@ -66,6 +66,31 @@
     XCTAssertEqual(result, YES);
     
 }
+-(void)testDeleteModel
+{
+    Person *person=[Person createPersonWithNum:1 andName:[NSString stringWithFormat:@"name_%@",@(666)] andAge:99 andScore:998];
+    BOOL result =[KingSqliteModelTool deleteModel:person andUserId:@"2"];
+    XCTAssertEqual(result, YES);
+
+}
+-(void)testDeleteModelForWhere{
+
+    BOOL result =[KingSqliteModelTool deleteModel:[Person class] whereStr:@"age<17" andUserId:@"3"];
+    XCTAssertEqual(result, YES);
+
+
+}
+-(void)testDeleteModelForRelation{
+    BOOL result=[KingSqliteModelTool deleteModel:[Person class] columnName:@"age" andRelationType:(KingSqliteToolRelationTypeIsLess) andValue:@(17) andUserId:@"2"];
+    
+    XCTAssertEqual(result, YES);
+}
+
+-(void)testDeleteModelForRelations{
+    
+    BOOL result= [KingSqliteModelTool deleteModels:[Person class] columnNames:@[@"num",@"age"] andRelationTypes:@[@(KingSqliteToolRelationTypeIsLess),@(KingSqliteToolRelationTypeIsGreater)] andValues:@[@(4),@(20)] andNexusTypes:@[@(KingSqliteToolNexusTypeIsAnd)] andUserId:@"2"];
+    XCTAssertEqual(result, YES);
+}
 
 
 
