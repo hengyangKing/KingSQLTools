@@ -9,6 +9,17 @@
 #import "Person.h"
 
 @implementation Person
++(instancetype)createPersonWithNum:(NSInteger)num andName:(NSString *)name andAge:(NSInteger)age andScore:(float)score
+{
+    Person *men=[[Person alloc]init];
+    men.num=num;
+    men.name=name;
+    men.age=age;
+    men.score=score;
+    return men;
+}
+
+#pragma mark sqlDelegate
 + (NSString *)primaryKey
 {
     return @"num";

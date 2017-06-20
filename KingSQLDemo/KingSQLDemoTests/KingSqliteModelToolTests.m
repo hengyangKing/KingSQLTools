@@ -50,5 +50,25 @@
 
 }
 
+-(void)testSaveModel {
+    
+    for (NSInteger i=0; i<10; i++) {
+        
+        Person *person=[Person createPersonWithNum:i andName:[NSString stringWithFormat:@"name_%@",@(i)] andAge:arc4random_uniform(4)+15+i andScore:arc4random_uniform(60)+i];
+        
+        [KingSqliteModelTool saveModel:person andUserId:@"3"];
+    }
+}
+-(void)testUpDateModel
+{
+    Person *person=[Person createPersonWithNum:1 andName:[NSString stringWithFormat:@"name_%@",@(666)] andAge:99 andScore:998];
+    BOOL result =[KingSqliteModelTool saveModel:person andUserId:@"2"];
+    XCTAssertEqual(result, YES);
+    
+}
+
+
+
+
 
 @end

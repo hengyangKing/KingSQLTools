@@ -30,11 +30,6 @@
     // 2. 执行
     return [KingSqliteTool dealSql:createTableSql andUserId:uid];
 }
-+(void)saveModel:(id)model
-{
-    
-}
-
 /**
  表格是否需要更新
  */
@@ -47,6 +42,10 @@
     return ![modelKeys isEqualToArray:tableKeys];
     
 }
+
+/**
+ 更新表格
+ */
 +(BOOL)upDataTable:(Class )cls andUserId:(NSString *)uid
 {
 //    1.创建一个拥有正确结构的临时表
@@ -113,4 +112,65 @@
     //批量执行
     return [KingSqliteTool dealSqls:sqls andUserId:uid];
 }
+// 保存/ 已经存在, 更新
++ (BOOL)saveModel:(id)model andUserId:(NSString *)uid
+{
+    // 1. 检查表是否需要更新, 如果需要, 更新,
+    // 表如果没有, 创建
+    BOOL result = [self createTable:[model class] andUserId:uid];
+    
+    if (!result) {
+        NSLog(@"表格错误");
+        return NO;
+    }
+    
+    // 2. 判断, 当前表里面, 是否存在这条记录
+    NSString *tableName=[KingBaseTool tableName:[model class]];
+    
+    if (![[model class] respondsToSelector:@selector(primaryKey)]) {
+        NSLog(@"如果想要操作这个模型, 必须要实现+ (NSString *)primaryKey;这个方法, 来告诉我主键信息");
+        return NO;
+    }
+    NSString *primaryKey = [[model class] primaryKey];
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ where %@ = '%@'", tableName, primaryKey, [model valueForKeyPath:primaryKey]];
+    
+    NSArray *res = [KingSqliteTool querySql:sql andUserId:uid];
+    
+    
+    // 字段
+    NSArray *columnNames=[KingTableTool tableSortedColumnNames:[model class] UserId:uid];
+
+    // 值
+    NSMutableArray *values = [NSMutableArray array];
+    for (NSString *columnName in columnNames) {
+        
+        id value = [model valueForKeyPath:columnName];
+        [values addObject:value];
+
+    }
+
+    if (res.count > 0) {
+        // 存在, ->更新
+        
+        NSMutableArray *tempResult = [NSMutableArray array];
+        for(int i = 0; i < columnNames.count; i++) {
+            NSString *columnName = columnNames[i];
+            id value = values[i];
+            NSString *str = [NSString stringWithFormat:@"%@ = '%@'", columnName, value];
+            [tempResult addObject:str];
+        }
+        
+        NSString *updateSql = [NSString stringWithFormat:@"update %@ set %@ where %@ = '%@'", tableName, [tempResult componentsJoinedByString:@","], primaryKey, [model valueForKeyPath:primaryKey]];
+        
+        return [KingSqliteTool dealSql:updateSql andUserId:uid];
+        
+    }else {
+        // 不存在, 插入
+        NSString *insertSql = [NSString stringWithFormat:@"insert into %@(%@) values ('%@')", tableName, [columnNames componentsJoinedByString:@","], [values componentsJoinedByString:@"','"]];
+        return [KingSqliteTool dealSql:insertSql andUserId:uid];
+    }
+}
+
+
 @end

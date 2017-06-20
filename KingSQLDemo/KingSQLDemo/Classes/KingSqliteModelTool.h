@@ -10,8 +10,6 @@
 
 @interface KingSqliteModelTool : NSObject
 
-+(void)saveModel:(id)model;
-
 /**
  创建表
 
@@ -40,6 +38,12 @@
  @return 返回是否更新成功
  */
 +(BOOL)upDataTable:(Class )cls andUserId:(NSString *)uid;
+
+
+// 保存/ 已经存在, 更新
++ (BOOL)saveModel:(id)model andUserId:(NSString *)uid;
+
+
 
 
 @end
