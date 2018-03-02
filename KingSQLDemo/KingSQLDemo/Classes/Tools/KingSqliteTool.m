@@ -121,7 +121,6 @@ sqlite3 *ppDb=nil;
 //回滚执行
 +(void)rollBackTransaction:(NSString *)uid{
     [self dealSql:@"rollBack transaction" andUserId:uid];
-
 }
 
 

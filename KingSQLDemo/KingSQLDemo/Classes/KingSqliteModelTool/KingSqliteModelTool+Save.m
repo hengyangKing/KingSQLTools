@@ -58,9 +58,10 @@
         NSString *previousName=columnName;
         if ([updateNames[columnName] length]!=0) {
             //老字段名称有值
+            //查找映射的旧字段名称
             previousName=updateNames[columnName];
         }
-        //        若不包含新的列名，且同时不包含旧列名
+        //若不包含新的列名，且同时不包含旧列名
         if ((![previousNames containsObject:columnName] &&![previousNames containsObject:previousName])||[columnName isEqualToString:primaryKey]) {
             continue;
         }

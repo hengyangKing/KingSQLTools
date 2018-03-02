@@ -22,7 +22,7 @@
 +(NSArray *)queryModels:(Class)cls columnName:(NSString *)columnName andRelationType:(KingSqliteToolRelationType)relationType andValue:(id)value andUserId:(NSString *)uid
 {
     NSString *tableName=[KingBaseTool tableName:cls];
-    NSString *sql=[NSString stringWithFormat:@"select * from %@ where %@ %@ %@",tableName,columnName,self.relationTypeSQLRelation[@(relationType)],value];
+    NSString *sql=[NSString stringWithFormat:@"select * from %@ where %@ %@ '%@'",tableName,columnName,self.relationTypeSQLRelation[@(relationType)],value];
     NSArray <NSDictionary *> *results=[KingSqliteTool querySql:sql andUserId:uid];
     return [self parseResults:results withClass:cls];
 }
@@ -58,7 +58,7 @@
             }
             [model setValue:resultValue forKeyPath:key];
         }];
-    }
+    } 
     return models;
 }
 

@@ -42,7 +42,7 @@
     
     NSString *relation=[self.relationTypeSQLRelation objectForKey:[NSNumber numberWithInteger:relationType]];
     
-    NSString *where=[NSString stringWithFormat:@"%@ %@ %@",columnName,relation,value];
+    NSString *where=[NSString stringWithFormat:@"%@ %@ '%@'",columnName,relation,value];
     return [self deleteModel:cls whereStr:where andUserId:uid];
 }
 
@@ -56,7 +56,7 @@
         NSString *relationStr = self.relationTypeSQLRelation[relationTypes[i]];
         id value = values[i];
         
-        NSString *tempStr = [NSString stringWithFormat:@"%@ %@ %@", key, relationStr, value];
+        NSString *tempStr = [NSString stringWithFormat:@"%@ %@ '%@'", key, relationStr, value];
         
         [resultStr appendString:tempStr];
         
